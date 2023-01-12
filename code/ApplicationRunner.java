@@ -12,7 +12,7 @@ public class ApplicationRunner extends JFrame {
             try{
                 Canva canva = new Canva();
                 Window window = new Window(canva);
-                window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 window.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace(System.err);

@@ -12,6 +12,8 @@ import static code.Settings.*;
 
 public class Window extends JFrame implements ActionListener {
 
+    public static int moveSpeed;
+
     JButton start = new JButton("Start"), stop = new JButton("Stop"), newObject = new JButton("New"), catchIt = new JButton("Catch"), removeIt = new JButton("Remove");
     JSlider difficultyLevel = new JSlider(JSlider.HORIZONTAL,1,10,10);
     JLabel dLInfo = new JLabel("Stopień trudności:"), catchedInfo = new JLabel("You have catched:"), howMany = new JLabel("0"+" objects") ;
@@ -69,11 +71,15 @@ public class Window extends JFrame implements ActionListener {
         add(howMany);
 
         add(canva);
+
+        start.addActionListener(e -> canva.timeStart());
+        stop.addActionListener(e -> canva.timeStop());
+        difficultyLevel.addChangeListener(e -> moveSpeed = 2 * difficultyLevel.getValue());
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Object source = e.getSource();
     }
 }
