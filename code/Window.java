@@ -12,7 +12,7 @@ import static code.Settings.*;
 
 public class Window extends JFrame implements ActionListener {
 
-    public static int moveSpeed;
+    public static int moveSpeed=2;
 
     JButton start = new JButton("Start"), stop = new JButton("Stop"), newObject = new JButton("New"), catchIt = new JButton("Catch"), removeIt = new JButton("Remove");
     JSlider difficultyLevel = new JSlider(JSlider.HORIZONTAL,1,10,10);
@@ -25,21 +25,21 @@ public class Window extends JFrame implements ActionListener {
         setLayout(null);
 
         newObject.setBackground(btnColor);
-        newObject.setBounds(x-550,20,100,60);
+        newObject.setBounds(xw-550,20,100,60);
         newObject.setFont(bFont);
 
         start.setBackground(btnColor);
-        start.setBounds(x-420,20,100,60);
+        start.setBounds(xw-420,20,100,60);
         start.setFont(bFont);
 
         stop.setBackground(btnColor);
-        stop.setBounds(x-290,20,100,60);
+        stop.setBounds(xw-290,20,100,60);
         stop.setFont(bFont);
 
-        dLInfo.setBounds(x-45,20,90,15);
+        dLInfo.setBounds(xw-45,20,90,15);
         dLInfo.setFont(sFont);
 
-        difficultyLevel.setBounds(x-100,35,200,55);
+        difficultyLevel.setBounds(xw-100,35,200,55);
         difficultyLevel.setBackground(bcColor);
         difficultyLevel.setMajorTickSpacing(1);
         difficultyLevel.setMinorTickSpacing(1);
@@ -48,16 +48,16 @@ public class Window extends JFrame implements ActionListener {
         difficultyLevel.setFont(sFont);
 
         catchIt.setBackground(btnColor);
-        catchIt.setBounds(x+190,20,100,60);
+        catchIt.setBounds(xw+190,20,100,60);
         catchIt.setFont(bFont);
 
         removeIt.setBackground(btnColor);
-        removeIt.setBounds(x+320,20,100,60);
+        removeIt.setBounds(xw+320,20,100,60);
         removeIt.setFont(bFont);
 
-        catchedInfo.setBounds(x+450,5,150,20);
+        catchedInfo.setBounds(xw+450,5,150,20);
         catchedInfo.setFont(sFont);
-        howMany.setBounds(x+450,25,150,20);
+        howMany.setBounds(xw+450,25,150,20);
         howMany.setFont(sFont);
 
         add(newObject);
@@ -72,14 +72,14 @@ public class Window extends JFrame implements ActionListener {
 
         add(canva);
 
+        newObject.addActionListener(e -> canva.addFigure());
         start.addActionListener(e -> canva.timeStart());
         stop.addActionListener(e -> canva.timeStop());
-        difficultyLevel.addChangeListener(e -> moveSpeed = 2 * difficultyLevel.getValue());
+        difficultyLevel.addChangeListener(e -> moveSpeed = difficultyLevel.getValue());
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
     }
 }

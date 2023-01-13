@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Ellipse2D;
 
 import static code.Settings.*;
 import static code.Window.moveSpeed;
@@ -19,7 +18,10 @@ public class Canva extends JPanel implements KeyListener, ActionListener {
 
     private final Timer time = new Timer(10,this);
 
-    private int moveX=2, moveY=2, chance, lastVerticalMove = 2, lastHorizontalMove = 2;
+    private int moveX=2, moveY=2, chance, lastVerticalMove, lastHorizontalMove;
+    private static int number;
+
+    static Graphics2D buf;
 
     public Canva(){
         setBounds(50,90,canvaWidth,canvaHeight);
@@ -31,13 +33,28 @@ public class Canva extends JPanel implements KeyListener, ActionListener {
         super.paintComponent(g);
         Graphics2D shape = (Graphics2D) g;
 
-        Ellipse2D circle = new Ellipse2D.Double(x,y,40,40);
-        shape.fill(circle);
+        Rectangle rect = new Rectangle(xc,yc,40,40);
+        shape.fill(rect);
     }
+    void addFigure(){
+    }
+
+    void timeStart(){
+        lastVerticalMove=moveSpeed;
+        lastHorizontalMove=moveSpeed;
+        if(!time.isRunning())
+            time.start();
+    }
+
+    void timeStop(){
+        if(time.isRunning())
+            time.stop();
+    }
+
 
     private void VerticalMove(){
         chance = (int) (Math.random() * (23));
-        if(y < 0 || y > canvaHeight-graphicsHeight || chance == 22){
+        if(yc < 0 || yc > canvaHeight-graphicsHeight || chance == 22){
             lastVerticalMove = -lastVerticalMove;
             moveY=lastVerticalMove;
         }else {
@@ -50,20 +67,9 @@ public class Canva extends JPanel implements KeyListener, ActionListener {
             }
         }
     }
-
-    void timeStart(){
-        if(!time.isRunning())
-        time.start();
-    }
-
-    void timeStop(){
-        if(time.isRunning())
-        time.stop();
-    }
-
     private void HorizontalMove(){
         chance = (int) (Math.random() * (23));
-        if(x < 0 || x > canvaWidth-graphicsWidth || chance == 22){
+        if(xc < 0 || xc > canvaWidth-graphicsWidth || chance == 22){
             lastHorizontalMove = -lastHorizontalMove;
             moveX=lastHorizontalMove;
         }else {
@@ -97,8 +103,8 @@ public class Canva extends JPanel implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e){
         HorizontalMove();
         VerticalMove();
-        x+= moveX;
-        y+= moveY;
+        xc+= moveX;
+        yc+= moveY;
         repaint();
     }
 }
